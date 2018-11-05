@@ -1,0 +1,22 @@
+#default settings for sessions
+[DEFAULT]#This will applies to all sessions
+ConnectionType=initiator
+LogonTimeout=30
+ReconnectInterval=5
+ResetOnLogon=Y
+FileLogPath=D:\QuickFix log\initiator\logs
+[SESSION]#A single session
+BeginString=FIX.4.2
+SenderCompID=MY-INITIATOR-SERVICE
+TargetCompID=MY-ACCEPTOR-SERVICE
+StartDay=sunday
+EndDay=friday
+StartTime=00:00:00
+EndTime=00:00:00
+HeartBtInt=30
+CheckLatency=N
+SocketConnectPort=12000
+SocketConnectHost=127.0.0.1
+UseDataDictionary=Y
+DataDictionary=D:\QuickFix log\initiator\FIX42.xml
+FileStorePath=D:\QuickFix log\initiator\ICE
