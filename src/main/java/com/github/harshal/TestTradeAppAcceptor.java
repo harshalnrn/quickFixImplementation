@@ -13,7 +13,7 @@ import quickfix.Application;
 
 /***
  * The Class TestTradeAppExecutor.
- * @author prabhat.jha
+ * @author harshal n
  */
 public class TestTradeAppAcceptor implements Application {
 

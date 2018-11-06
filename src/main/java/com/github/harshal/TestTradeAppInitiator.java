@@ -12,7 +12,7 @@ import quickfix.UnsupportedMessageType;
 
 /***
  * The Class TestTradeAppInitiator.
- * @author prabhat.jha
+ * @author harshal n
  */
 public class TestTradeAppInitiator implements Application {
 
