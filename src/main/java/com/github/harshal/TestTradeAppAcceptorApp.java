@@ -25,8 +25,11 @@ public class TestTradeAppAcceptorApp {
                     executorSettings);
             MessageFactory messageFactory = new DefaultMessageFactory();
             FileLogFactory fileLogFactory = new FileLogFactory(executorSettings);
+
             socketAcceptor = new SocketAcceptor(application, fileStoreFactory,
                     executorSettings, fileLogFactory, messageFactory);
+            //note 'SocketAcceptor' bean used by cceptor, to listen to sessions ,on its socket.
+            //(Similar to other connections, Every connection identified by sessions)
             socketAcceptor.start();
         } catch (ConfigError e) {
             e.printStackTrace();

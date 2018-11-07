@@ -30,9 +30,12 @@ public class TestTradeAppInitiatorApp {
             FileLogFactory fileLogFactory = new FileLogFactory(
                     initiatorSettings);
             MessageFactory messageFactory = new DefaultMessageFactory();
+            //
             socketInitiator = new SocketInitiator(initiatorApplication, fileStoreFactory, initiatorSettings, fileLogFactory, messageFactory);
+            System.out.println("before starting of session on initiator socket");
             socketInitiator.start();
             SessionID sessionId = socketInitiator.getSessions().get(0);
+            System.out.println("session id is " +sessionId);
             Session.lookupSession(sessionId).logon();
         } catch (ConfigError e) {
             e.printStackTrace();
