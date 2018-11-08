@@ -1,27 +1,23 @@
 package com.github.harshal;
 
-import quickfix.Application;
-import quickfix.DoNotSend;
-import quickfix.FieldNotFound;
-import quickfix.IncorrectDataFormat;
-import quickfix.IncorrectTagValue;
-import quickfix.Message;
-import quickfix.RejectLogon;
-import quickfix.SessionID;
-import quickfix.UnsupportedMessageType;
+import quickfix.*;
 
 /***
- * The Class TestTradeAppInitiator.
+ * The Class TestTradeAppInitiator. (i.e client)
  * @author harshal n
+ *
+ * Every FIX application should have an implementation of Application interface, Application interface contains call back methods.
+ * MessageCracker provides callback methods, for receiving messages from Server.
  */
-public class TestTradeAppInitiator implements Application {
+public class TestTradeAppInitiator extends MessageCracker implements Application {
 
     /** (non-Javadoc)
      * @see quickfix.Application#onCreate(quickfix.SessionID)
      */
     
     public void onCreate(SessionID sessionId) {
-
+        System.out.println("Successfully called onCreate for sessionId : "
+                + sessionId);
     }
 
     /** (non-Javadoc)
@@ -29,7 +25,7 @@ public class TestTradeAppInitiator implements Application {
      */
     
     public void onLogon(SessionID sessionId) {
-
+        System.out.println("Successfully logged on for sessionId : " + sessionId);
     }
 
     /** (non-Javadoc)
@@ -37,7 +33,7 @@ public class TestTradeAppInitiator implements Application {
      */
     
     public void onLogout(SessionID sessionId) {
-
+        System.out.println("Successfully logged out for sessionId : " + sessionId);
     }
 
     /** (non-Javadoc)
@@ -45,7 +41,7 @@ public class TestTradeAppInitiator implements Application {
      */
     
     public void toAdmin(Message message, SessionID sessionId) {
-
+        System.out.println("Inside toAdmin method");
     }
 
     /** (non-Javadoc)
@@ -55,15 +51,17 @@ public class TestTradeAppInitiator implements Application {
     public void fromAdmin(Message message, SessionID sessionId)
             throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue,
             RejectLogon {
-
+        System.out.println("Successfully called fromAdmin method for sessionId : "
+                + sessionId);
     }
+
 
     /** (non-Javadoc)
      * @see quickfix.Application#toApp(quickfix.Message, quickfix.SessionID)
      */
     
     public void toApp(Message message, SessionID sessionId) throws DoNotSend {
-
+        System.out.println("Message : " + message + " for sessionid : " + sessionId);
     }
 
     /*** (non-Javadoc)
@@ -74,5 +72,11 @@ public class TestTradeAppInitiator implements Application {
             throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue,
             UnsupportedMessageType {
 
+        System.out.println("Successfully called fromApp for sessionId : "
+                +sessionId );
     }
 }
+
+
+//summary of event methods:
+//onCreate, onLogon, onLogout, toAdmin, fromAdmin, toApp, fromApp

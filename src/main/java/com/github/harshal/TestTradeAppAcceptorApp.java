@@ -1,12 +1,10 @@
 package com.github.harshal;
-import quickfix.Application;
-import quickfix.ConfigError;
-import quickfix.DefaultMessageFactory;
-import quickfix.FileLogFactory;
-import quickfix.FileStoreFactory;
-import quickfix.MessageFactory;
-import quickfix.SessionSettings;
-import quickfix.SocketAcceptor;
+import quickfix.*;
+import quickfix.field.BeginString;
+import quickfix.field.HeartBtInt;
+import quickfix.field.ResetSeqNumFlag;
+import quickfix.fix40.Logon;
+
 public class TestTradeAppAcceptorApp {
 
     /**
@@ -35,4 +33,7 @@ public class TestTradeAppAcceptorApp {
             e.printStackTrace();
         }
     }
+
+
+
 }
