@@ -1,21 +1,13 @@
 package com.github.harshal;
 
 
-import quickfix.Application;
-        import quickfix.DoNotSend;
-        import quickfix.FieldNotFound;
-        import quickfix.IncorrectDataFormat;
-        import quickfix.IncorrectTagValue;
-        import quickfix.Message;
-        import quickfix.RejectLogon;
-        import quickfix.SessionID;
-        import quickfix.UnsupportedMessageType;
+import quickfix.*;
 
 /***
  * The Class TestTradeAppExecutor.
  * @author harshal n
  */
-public class TestTradeAppAcceptor implements Application {
+public class TestTradeAppAcceptor extends MessageCracker implements Application {
 
     /** (non-Javadoc)
      * @see quickfix.Application#onCreate(quickfix.SessionID)

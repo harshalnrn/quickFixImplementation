@@ -51,10 +51,10 @@ public class TestTradeAppInitiatorApp {
         Message.Header header = logon.getHeader();
         header.setField(new BeginString("FIX.4.2"));
         logon.set(new HeartBtInt(30));
-        logon.set(new ResetSeqNumFlag(true));
+      //  logon.set(new ResetSeqNumFlag(true));
         logon.set(new EncryptMethod(0));
-        boolean sent = Session.sendToTarget(logon, sessionId); // note : toApp gets called from sendToTarget method
-        System.out.println("Response received on call method for Logon Message Sent : " + sent);
+        boolean sent = Session.sendToTarget(logon, sessionId); // note : toApp gets called from sendToTarget method of Session class
+
         //Here we create a real FIX message for quickfix to send it.
         // toApp is an event handler that gets called when a message is sent. If you put a call to quickfix.Session.sendToTarget, it will then call toApp again when it gets sent
     }

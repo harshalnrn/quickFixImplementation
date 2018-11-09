@@ -16,7 +16,7 @@ public class TestTradeAppInitiator extends MessageCracker implements Application
      */
     
     public void onCreate(SessionID sessionId) {
-        System.out.println("Successfully called onCreate for sessionId : "
+        System.out.println("onCreate called when QFJ creates a new session"
                 + sessionId);
     }
 
@@ -25,7 +25,7 @@ public class TestTradeAppInitiator extends MessageCracker implements Application
      */
     
     public void onLogon(SessionID sessionId) {
-        System.out.println("Successfully logged on for sessionId : " + sessionId);
+        System.out.println("onLogon notifies you when a valid logon has been established with a counter party. This is called when a connection has been established and the FIX logon process has completed with both parties exchanging valid logon messages." + sessionId);
     }
 
     /** (non-Javadoc)
@@ -33,7 +33,7 @@ public class TestTradeAppInitiator extends MessageCracker implements Application
      */
     
     public void onLogout(SessionID sessionId) {
-        System.out.println("Successfully logged out for sessionId : " + sessionId);
+        System.out.println("onLogout notifies you when an FIX session is no longer online" + sessionId);
     }
 
     /** (non-Javadoc)
@@ -41,7 +41,8 @@ public class TestTradeAppInitiator extends MessageCracker implements Application
      */
     
     public void toAdmin(Message message, SessionID sessionId) {
-        System.out.println("Inside toAdmin method");
+
+        System.out.println("toAdmin provides you with a peek at the administrative messages that are being sent from your FIX engine to the counter party");
     }
 
     /** (non-Javadoc)
@@ -51,7 +52,8 @@ public class TestTradeAppInitiator extends MessageCracker implements Application
     public void fromAdmin(Message message, SessionID sessionId)
             throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue,
             RejectLogon {
-        System.out.println("Successfully called fromAdmin method for sessionId : "
+
+        System.out.println("fromAdmin has notified you when an administrative message is sent from a counterparty to your FIX engine for sessionId : "
                 + sessionId);
     }
 
@@ -61,7 +63,9 @@ public class TestTradeAppInitiator extends MessageCracker implements Application
      */
     
     public void toApp(Message message, SessionID sessionId) throws DoNotSend {
+        System.out.println("toApp is a callback, for application messages that are being sent to a counterparty. Acceptor requests them to be sent again. example: resend MTM order");
         System.out.println("Message : " + message + " for sessionid : " + sessionId);
+
     }
 
     /*** (non-Javadoc)
@@ -72,7 +76,7 @@ public class TestTradeAppInitiator extends MessageCracker implements Application
             throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue,
             UnsupportedMessageType {
 
-        System.out.println("Successfully called fromApp for sessionId : "
+        System.out.println("fromApp is one of the core entry points for your FIX application. Every application level request will come through here from counterparty. Hence reception happens here"
                 +sessionId );
     }
 }
@@ -80,3 +84,7 @@ public class TestTradeAppInitiator extends MessageCracker implements Application
 
 //summary of event methods:
 //onCreate, onLogon, onLogout, toAdmin, fromAdmin, toApp, fromApp
+
+
+
+//Here admin, App denote the counterparty /acceptor.
