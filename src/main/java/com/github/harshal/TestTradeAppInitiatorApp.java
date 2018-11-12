@@ -30,6 +30,7 @@ public class TestTradeAppInitiatorApp {
             //
             socketInitiator = new SocketInitiator(initiatorApplication, fileStoreFactory, initiatorSettings, fileLogFactory, messageFactory);
             System.out.println("before starting of session on initiator socket");
+
             socketInitiator.start(); // this establishes session and connects to acceptor (server)
             SessionID sessionId = socketInitiator.getSessions().get(0);
             System.out.println("session id is " +sessionId);
@@ -42,11 +43,13 @@ public class TestTradeAppInitiatorApp {
             }
             sendLogonRequest(sessionId);
             Thread.sleep(5000);
+
             bookSingleOrder(sessionId);
-            System.out.println("Type to quit");
+
+          /*  System.out.println("Type to quit");
             Scanner scanner = new Scanner(System.in);
             scanner.next();
-            Session.lookupSession(sessionId).disconnect("Done",false);
+            Session.lookupSession(sessionId).disconnect("Done",false);*/
             socketInitiator.stop();
 
 
@@ -59,9 +62,7 @@ public class TestTradeAppInitiatorApp {
         catch (InterruptedException e) {
             e.printStackTrace();
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
 
