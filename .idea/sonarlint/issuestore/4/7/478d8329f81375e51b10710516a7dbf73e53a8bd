@@ -1,9 +1,10 @@
 
-Fsquid:S1148+"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8‰Àó£ï,
-[
-squid:S106""9Replace this use of System.out or System.err by a logger.(‡•‹Šùÿÿÿÿ8ØÓÍáî,
-[
-squid:S1069"9Replace this use of System.out or System.err by a logger.(‚¤ ´úÿÿÿÿ8˜ÄÙ£ï,
-Fsquid:S1148("#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ÿ«ş¦î,
 U
 squid:S106"9Replace this use of System.out or System.err by a logger.(ĞÁs8¿åãáî,
+Fsquid:S1148+"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8‰Àó£ï,
+Usquid:S18548"8Remove this useless assignment to local variable "sent".(¸§i8½œŒ´ï,
+Fsquid:S14818")Remove this unused "sent" local variable.(¸§i8½œŒ´ï,
+isquid:CommentedOutCodeLine6"<This block of commented-out lines of code should be removed.(ò›©¼8Š»‹µï,
+Fsquid:S1148("#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ÿ«ş¦î,
+[
+squid:S106""9Replace this use of System.out or System.err by a logger.(‡•‹Šùÿÿÿÿ8ØÓÍáî,

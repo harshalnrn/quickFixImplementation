@@ -1,10 +1,11 @@
 package com.github.harshal;
 import quickfix.*;
-import quickfix.field.BeginString;
-import quickfix.field.EncryptMethod;
-import quickfix.field.HeartBtInt;
-import quickfix.field.ResetSeqNumFlag;
+import quickfix.field.*;
 import quickfix.fix42.Logon;
+import quickfix.fix42.NewOrderSingle;
+
+import java.io.IOException;
+import java.util.Scanner;
 
 public class TestTradeAppInitiatorApp {
 
@@ -34,12 +35,31 @@ public class TestTradeAppInitiatorApp {
             System.out.println("session id is " +sessionId);
 
             Session.lookupSession(sessionId).logon();
+            while(!Session.lookupSession(sessionId).isLoggedOn()){
+                System.out.println("Waiting for login success");
+                Thread.sleep(1000);
+                System.out.println("Logged In...");
+            }
             sendLogonRequest(sessionId);
+            Thread.sleep(5000);
+            bookSingleOrder(sessionId);
+            System.out.println("Type to quit");
+            Scanner scanner = new Scanner(System.in);
+            scanner.next();
+            Session.lookupSession(sessionId).disconnect("Done",false);
+            socketInitiator.stop();
+
 
         } catch (ConfigError e) {
             e.printStackTrace();
         }
         catch(SessionNotFound e){
+            e.printStackTrace();
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -51,7 +71,7 @@ public class TestTradeAppInitiatorApp {
         Message.Header header = logon.getHeader();
         header.setField(new BeginString("FIX.4.2"));
         logon.set(new HeartBtInt(30));
-      //  logon.set(new ResetSeqNumFlag(true));
+        logon.set(new ResetSeqNumFlag(true));
         logon.set(new EncryptMethod(0));
         boolean sent = Session.sendToTarget(logon, sessionId); // note : toApp gets called from sendToTarget method of Session class
 
@@ -59,6 +79,28 @@ public class TestTradeAppInitiatorApp {
         // toApp is an event handler that gets called when a message is sent. If you put a call to quickfix.Session.sendToTarget, it will then call toApp again when it gets sent
     }
 
+    private static void bookSingleOrder(SessionID sessionID){
+        //In real world this won't be a hardcoded value rather than a sequence.
+        ClOrdID orderId = new ClOrdID("1");
+        //to be executed on the exchange
+        HandlInst instruction = new HandlInst(HandlInst.AUTOMATED_EXECUTION_ORDER_PRIVATE_NO_BROKER_INTERVENTION);
+        //Since its FX currency pair name
+        Symbol mainCurrency = new Symbol("EUR/USD");
+        //Which side buy, sell
+        Side side = new Side(Side.BUY);
+        //Time of transaction
+        TransactTime transactionTime = new TransactTime();
+        //Type of our order, here we are assuming this is being executed on the exchange
+        OrdType orderType = new OrdType(OrdType.FOREX_MARKET);
+        NewOrderSingle newOrderSingle = new NewOrderSingle(orderId,instruction,mainCurrency, side, transactionTime,orderType);
+        //Quantity
+        newOrderSingle.set(new OrderQty(100));
+        try {
+            Session.sendToTarget(newOrderSingle, sessionID);
+        } catch (SessionNotFound e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }
